@@ -1,3 +1,5 @@
+// User Model 
+
 import mongoose from "mongoose";
 import { Password } from "../services/passwords";
 
