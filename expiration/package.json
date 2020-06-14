@@ -1,0 +1,20 @@
+{
+  "name": "expiration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ticketing-pkgs/common": "^1.0.11",
+    "@types/bull": "^3.14.0",
+    "bull": "^3.14.0",
+    "node-nats-streaming": "^0.3.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  }
+}

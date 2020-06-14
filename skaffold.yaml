@@ -1,0 +1,60 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: turing-nature-277817
+  artifacts:
+    - image: asia.gcr.io/turing-nature-277817/auth
+      context: auth
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/.ts"
+            dest: .
+    - image: asia.gcr.io/turing-nature-277817/tickets
+      context: tickets
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/.ts"
+            dest: .
+    - image: asia.gcr.io/turing-nature-277817/orders
+      context: orders
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/.ts"
+            dest: .
+    - image: asia.gcr.io/turing-nature-277817/expiration
+      context: expiration
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/.ts"
+            dest: .
+    - image: asia.gcr.io/turing-nature-277817/payments
+      context: payments
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/.ts"
+            dest: .
+    - image: asia.gcr.io/turing-nature-277817/client
+      context: client
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .

@@ -1,0 +1,12 @@
+{
+  "name": "ticketing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "update-common": "cd orders && npm update @ticketing-pkgs/common && cd .. && cd tickets && npm update @ticketing-pkgs/common && cd .. && cd payments && npm update @ticketing-pkgs/common && cd .."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
