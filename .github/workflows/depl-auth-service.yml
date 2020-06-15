@@ -45,13 +45,14 @@ jobs:
 
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
+          # Change the directory of file
+    - run: cd auth  
     - run: |-
         gcloud --quiet auth configure-docker
     # Get the GKE credentials so we can deploy to the cluster
     - run: |-
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-    # Change the directory of file
-    - run: cd auth  
+
     # Build the Docker image
     - name: Build
       run: docker build -t "asia.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" .
