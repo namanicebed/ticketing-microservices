@@ -60,16 +60,5 @@ jobs:
     - name: Publish
       run: |-
         docker push "asia.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
-    # Set up kustomize
-    - name: Set up Kustomize
-      run: |-
-        curl -s "https://raw.githubusercontent.com/\
-        kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |-
-          ./kustomize edit set image asia.gcr.io/PROJECT_ID/IMAGE:TAG=asia.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
-          ./kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment/$IMAGE
-          kubectl get services -o wide
+
         
