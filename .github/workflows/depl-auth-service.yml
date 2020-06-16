@@ -53,8 +53,7 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |-
-        cd auth && docker build \
-          --tag "asia.gcr.io/$PROJECT_ID/$IMAGE"
+        cd auth && docker build -t "asia.gcr.io/$PROJECT_ID/$IMAGE" .
           .
     # Push the Docker image to Google Container Registry
     - name: Publish
