@@ -47,6 +47,7 @@ jobs:
     # helper for authentication
           # Change the directory of file
     - run: cd auth  
+    - run: ls
     - run: |-
         gcloud --quiet auth configure-docker
     # Get the GKE credentials so we can deploy to the cluster
