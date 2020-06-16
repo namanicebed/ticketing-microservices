@@ -21,9 +21,9 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: cluster-1   # TODO: update to cluster name
-  GKE_ZONE: us-central1-c  # TODO: update to cluster zone
-  IMAGE: static-site
+  GKE_CLUSTER: ticketing-dev   # TODO: update to cluster name
+  GKE_ZONE: asia-south1-b  # TODO: update to cluster zone
+  IMAGE: auth
 
 jobs:
   setup-build-publish-deploy:
@@ -52,14 +52,14 @@ jobs:
     - name: Build
       run: |-
         cd auth && docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+          --tag "asia.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+        docker push "asia.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
