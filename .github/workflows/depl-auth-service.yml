@@ -60,4 +60,4 @@ jobs:
         docker push "asia.gcr.io/$PROJECT_ID/$IMAGE"
 
     - name: Restart Deployment
-      run: kubectl rollout restart deployment
+      run: kubectl rollout restart deployment auth-depl
