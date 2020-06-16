@@ -63,8 +63,8 @@ jobs:
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
-        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.6.1/kustomize_3.6.1_linux_amd64
-        chmod u+x ./kustomize
+        curl -s "https://raw.githubusercontent.com/\
+        kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
