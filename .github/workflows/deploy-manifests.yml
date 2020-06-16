@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Build and Deploy to GKE
+name: Deploy Manifests to Kubernetes
 
 on:
   push:
     branches:
     - master
+    paths:
+    - 'infra/**'
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
