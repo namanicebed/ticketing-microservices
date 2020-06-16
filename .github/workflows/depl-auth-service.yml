@@ -12,20 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Deploy Auth Service
+name: Build and Deploy to GKE
 
 on:
   push:
     branches:
-      - master
-    paths:
-      - 'auth/**'
+    - master
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: ticketing-dev   # TODO: update to cluster name
-  GKE_ZONE: asia-south1-b  # TODO: update to cluster zone
-  IMAGE: auth
+  GKE_CLUSTER: cluster-1   # TODO: update to cluster name
+  GKE_ZONE: us-central1-c  # TODO: update to cluster zone
+  IMAGE: static-site
 
 jobs:
   setup-build-publish-deploy:
@@ -45,20 +43,23 @@ jobs:
 
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
-          # Change the directory of file
     - run: |-
         gcloud --quiet auth configure-docker
     # Get the GKE credentials so we can deploy to the cluster
     - run: |-
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-
     # Build the Docker image
     - name: Build
-      run: cd auth && docker build -t "asia.gcr.io/$PROJECT_ID/$IMAGE" .
+      run: |-
+        cd auth && docker build \
+          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" \
+          .
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push "asia.gcr.io/$PROJECT_ID/$IMAGE"
+        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
@@ -67,7 +68,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE
+        ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$IMAGE
         kubectl get services -o wide
