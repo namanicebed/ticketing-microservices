@@ -46,7 +46,7 @@ app.all("*", () => {
 });
 
 const start = async () => {
-  console.log('Starting orders service...')
+  console.log("Starting orders service..");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must be definded");
   }
