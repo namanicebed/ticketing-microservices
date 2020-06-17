@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: ticketing.dev
+    - host: www.dinenation.in
       http:
         paths:
           - path: /api/users/?(.*)
@@ -23,7 +23,7 @@ spec:
               serviceName: orders-srv
               servicePort: 3000
           - path: /api/payments/?(.*)
-            backend: 
+            backend:
               serviceName: payments-srv
               servicePort: 3000
           - path: /?(.*)
