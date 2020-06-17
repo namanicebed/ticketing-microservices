@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Deploy Manifests to Kubernetes
+name: Deploy Ingress-NGINX to kubernetes
 
 on:
   push:
