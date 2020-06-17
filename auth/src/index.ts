@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true,
+    secure: false,
   })
 );
 
@@ -32,6 +32,7 @@ app.use(errorHandler);
 
 const start = async () => {
   console.log("Starting auth service ..")
+  
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must be definded");
   }
