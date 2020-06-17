@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Auth Service Deployment
+name: Deploy Auth Service
 
 on:
   push:
@@ -29,7 +29,7 @@ env:
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Restart
+    name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 
     steps:
