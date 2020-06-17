@@ -35,7 +35,7 @@ app.all("*", () => {
 });
 
 const start = async () => {
-  console.log("Starting payments service...");
+  console.log("Starting payments service..");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must be definded");
   }
